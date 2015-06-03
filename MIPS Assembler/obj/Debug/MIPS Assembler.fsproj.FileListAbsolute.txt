@@ -1,0 +1,12 @@
+c:\users\diogobernini\documents\visual studio 2013\Projects\MIPS Assembler\MIPS Assembler\bin\Debug\MIPS_Assembler.exe.config
+c:\users\diogobernini\documents\visual studio 2013\Projects\MIPS Assembler\MIPS Assembler\bin\Debug\MIPS_Assembler.XML
+c:\users\diogobernini\documents\visual studio 2013\Projects\MIPS Assembler\MIPS Assembler\bin\Debug\MIPS_Assembler.exe
+c:\users\diogobernini\documents\visual studio 2013\Projects\MIPS Assembler\MIPS Assembler\bin\Debug\MIPS_Assembler.pdb
+c:\users\diogobernini\documents\visual studio 2013\Projects\MIPS Assembler\MIPS Assembler\bin\Debug\FParsec.dll
+c:\users\diogobernini\documents\visual studio 2013\Projects\MIPS Assembler\MIPS Assembler\bin\Debug\FParsecCS.dll
+c:\users\diogobernini\documents\visual studio 2013\Projects\MIPS Assembler\MIPS Assembler\bin\Debug\FSharp.Core.dll
+c:\users\diogobernini\documents\visual studio 2013\Projects\MIPS Assembler\MIPS Assembler\bin\Debug\FParsec.xml
+c:\users\diogobernini\documents\visual studio 2013\Projects\MIPS Assembler\MIPS Assembler\bin\Debug\FParsecCS.xml
+c:\users\diogobernini\documents\visual studio 2013\Projects\MIPS Assembler\MIPS Assembler\bin\Debug\FSharp.Core.xml
+c:\users\diogobernini\documents\visual studio 2013\Projects\MIPS Assembler\MIPS Assembler\obj\Debug\MIPS_Assembler.exe
+c:\users\diogobernini\documents\visual studio 2013\Projects\MIPS Assembler\MIPS Assembler\obj\Debug\MIPS_Assembler.pdb
