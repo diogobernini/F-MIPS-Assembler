@@ -84,6 +84,11 @@ let instructionToType (instructionString:string) =
     let listInst = List.filter (fun x -> x<> "") (Array.toList(instructionString.Split(' ',',','(')))
     processInstruction listInst
 
+let readLines (filePath:string) = seq {
+    use sr = new System.IO.StreamReader (filePath)
+    while not sr.EndOfStream do
+        yield sr.ReadLine ()
+}
 
 [<EntryPoint>]
 let main argv = 
