@@ -90,8 +90,14 @@ let readLines (filePath:string) = seq {
         yield sr.ReadLine ()
 }
 
+let processLines sequence =
+    let list = List.ofSeq(sequence)
+    let processedList = list |> List.map (fun x -> instructionToType x)
+    processedList
+
 [<EntryPoint>]
 let main argv = 
-    let valor = instructionToType "Lw $T0,0($T0)"
-    printfn "%s" (valor.ToString())
+    let seqFile = readLines "C:\\Users\\DiogoBernini\\Documents\\Visual Studio 2013\\Projects\\MIPS Assembler\\MIPS Assembler\\assembly.asm"
+    let pl = processLines seqFile
+    printfn "%s" (pl.ToString())
     0 // return an integer exit code
