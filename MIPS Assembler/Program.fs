@@ -148,6 +148,15 @@ let cteToBinary cte size =
 let findLabelPosition (address:string) =
     cteToBinary (int address) 26
 
+let binToHex (binary:string) =
+    let list = List.ofSeq binary
+    let rec splitBy acc (list:char list) =
+        match acc, list with
+        |1, x::y::xs -> x.ToString()::splitBy 4 (y::xs)
+        |_, x::y::xs -> (x.ToString() + y.ToString())::splitBy (acc-1) xs
+        |_, x -> x.ToString()::[]
+    splitBy 4 list
+
 let instructionToBinary (instruction:Instruction) =
     match instruction with
     |Instruction.R(opcode,reg1,reg2,reg3) -> opcodeToBinary(opcode) + registerToBinary(reg1) + registerToBinary(reg2) + registerToBinary(reg3) + "00000000000"
@@ -174,5 +183,6 @@ let processLines sequence =
 let main argv = 
     let seqFile = readLines "C:\\Users\\DiogoBernini\\Documents\\Visual Studio 2013\\Projects\\MIPS Assembler\\MIPS Assembler\\assembly.asm"
     let pl = processLines seqFile
+    let x = binToHex "abcd"
     printfn "%s" (pl.ToString())
     0 // return an integer exit code
