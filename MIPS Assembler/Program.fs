@@ -201,15 +201,14 @@ let processLines sequence =
     processedList
 
 let writeLines (lines:string list) (file:string) =
-    let sr = new System.IO.StreamWriter(file)
-    Array.ofList lines |> ignore
+    use sr = new System.IO.StreamWriter(file)
+    Array.ofList lines |> Array.map sr.WriteLine |> ignore
     sr.Flush |> ignore
     sr.Close |> ignore
     0
 
-[<EntryPoint>]
-let main argv = 
-    let seqFile = readLines "C:\\Users\\DiogoBernini\\Documents\\Visual Studio 2013\\Projects\\MIPS Assembler\\MIPS Assembler\\assembly.asm"
+let assemble fileOrigin fileOutput = 
+    let seqFile = readLines fileOrigin //"C:\\Users\\DiogoBernini\\Documents\\Visual Studio 2013\\Projects\\MIPS Assembler\\MIPS Assembler\\assembly.asm"
     let pl = processLines seqFile
-    writeLines pl "C:\\Users\\DiogoBernini\\Documents\\Visual Studio 2013\\Projects\\MIPS Assembler\\MIPS Assembler\\compiled.asm" |> ignore
+    writeLines pl fileOutput |> ignore//"C:\\Users\\DiogoBernini\\Documents\\Visual Studio 2013\\Projects\\MIPS Assembler\\MIPS Assembler\\compiled.asm" |> ignore
     0 // return an integer exit code
