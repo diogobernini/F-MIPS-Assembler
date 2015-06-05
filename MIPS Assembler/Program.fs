@@ -133,7 +133,7 @@ let registerToBinary (register:Register) =
     |FP -> "11110"
     |RA -> "11111"
 
-let cteToBinary cte =
+let cteToBinary cte size =
     let rec cteToBinaryIn i =
         match i with
         | 0 | 1 -> string i
@@ -141,18 +141,17 @@ let cteToBinary cte =
             let bit = string (i % 2)
             (cteToBinaryIn (i / 2)) + bit
     let rec add0 string =
-        match string with
-        |string when String.length(string)<16 -> "0" + add0 string
-        |_ -> string
+        if(String.length(string)<size) then add0 ("0" + string)
+        else string
     add0 (cteToBinaryIn cte)
 
 let findLabelPosition (address:string) =
-    "0000"
+    cteToBinary (int address) 26
 
 let instructionToBinary (instruction:Instruction) =
     match instruction with
     |Instruction.R(opcode,reg1,reg2,reg3) -> opcodeToBinary(opcode) + registerToBinary(reg1) + registerToBinary(reg2) + registerToBinary(reg3) + "00000000000"
-    |Instruction.I(opcode,reg1,reg2,cte) -> opcodeToBinary(opcode) + registerToBinary(reg1) + registerToBinary(reg2) + cteToBinary(cte)
+    |Instruction.I(opcode,reg1,reg2,cte) -> opcodeToBinary(opcode) + registerToBinary(reg1) + registerToBinary(reg2) + cteToBinary cte 16
     |Instruction.J(opcode,address) ->  opcodeToBinary(opcode) + findLabelPosition(address)
 
 
