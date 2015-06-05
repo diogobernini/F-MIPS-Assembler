@@ -150,12 +150,33 @@ let findLabelPosition (address:string) =
 
 let binToHex (binary:string) =
     let list = List.ofSeq binary
-    let rec splitBy acc (list:char list) =
-        match acc, list with
-        |1, x::y::xs -> x.ToString()::splitBy 4 (y::xs)
-        |_, x::y::xs -> (x.ToString() + y.ToString())::splitBy (acc-1) xs
-        |_, x -> x.ToString()::[]
-    splitBy 4 list
+    let rec addComma acc (str:char list) = 
+        match acc,str with
+        |1, x::xy -> x::','::addComma 4 xy
+        |_, x::xy -> x::addComma (acc-1) xy
+        |_, x -> x
+    let commedString = (List.toArray(addComma 4 list) |> (fun x -> System.String x)).Split(',')
+    let commedString2 = List.filter (fun x -> x<> "") (Array.toList(commedString))
+    let toHex value =
+        match value with
+        |"0000" -> "0"
+        |"0001" -> "1"
+        |"0010" -> "2"
+        |"0011" -> "3"
+        |"0100" -> "4"
+        |"0101" -> "5"
+        |"0110" -> "6"
+        |"0111" -> "7"
+        |"1000" -> "8"
+        |"1001" -> "9"
+        |"1010" -> "A"
+        |"1011" -> "B"
+        |"1100" -> "C"
+        |"1101" -> "D"
+        |"1110" -> "E"
+        |"1111" -> "F"
+        |_ -> failwith "invalid binary data"
+    commedString2 |> List.map (fun x -> toHex x) |> String.concat ""
 
 let instructionToBinary (instruction:Instruction) =
     match instruction with
@@ -176,13 +197,19 @@ let readLines (filePath:string) = seq {
 
 let processLines sequence =
     let list = List.ofSeq(sequence)
-    let processedList = list |> List.map (fun x -> instructionToBinary(instructionToType x))
+    let processedList = list |> List.map (fun x -> binToHex(instructionToBinary(instructionToType x)))
     processedList
+
+let writeLines (lines:string list) (file:string) =
+    let sr = new System.IO.StreamWriter(file)
+    Array.ofList lines |> ignore
+    sr.Flush |> ignore
+    sr.Close |> ignore
+    0
 
 [<EntryPoint>]
 let main argv = 
     let seqFile = readLines "C:\\Users\\DiogoBernini\\Documents\\Visual Studio 2013\\Projects\\MIPS Assembler\\MIPS Assembler\\assembly.asm"
     let pl = processLines seqFile
-    let x = binToHex "abcd"
-    printfn "%s" (pl.ToString())
+    writeLines pl "C:\\Users\\DiogoBernini\\Documents\\Visual Studio 2013\\Projects\\MIPS Assembler\\MIPS Assembler\\compiled.asm" |> ignore
     0 // return an integer exit code
