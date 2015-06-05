@@ -23,7 +23,7 @@ type Register = |Zero
                 |GP |SP |FP |RA
 
 type Instruction = |R of Opcode * Register * Register * Register  // opc $r1, $r2, $r3
-                   |I of Opcode * Register * Register * float  // opc $r1, $r2, ct
+                   |I of Opcode * Register * Register * int  // opc $r1, $r2, ct
                    |J of Opcode * string   // opc $label
 
 
@@ -66,7 +66,7 @@ let processRegister (register:string) =
     |_ -> failwith "invalid register"
 
 
-let rec processInstruction str =
+let processInstruction str =
     match str with
     |"Add"::x1::x2::x3::tail -> R(Add,processRegister x1, processRegister x2, processRegister x3)
     |"Sub"::x1::x2::x3::tail -> R(Sub,processRegister x1, processRegister x2, processRegister x3)
@@ -74,11 +74,11 @@ let rec processInstruction str =
     |"Nor"::x1::x2::x3::tail -> R(Nor,processRegister x1, processRegister x2, processRegister x3)
     |"Xor"::x1::x2::x3::tail -> R(Xor,processRegister x1, processRegister x2, processRegister x3)
     |"Slt"::x1::x2::x3::tail -> R(Slt,processRegister x1, processRegister x2, processRegister x3)
-    |"Beq"::x1::x2::x3::tail -> I(Beq,processRegister x1, processRegister x2, float x3)
-    |"Lw"::x1::x2::x3::tail -> I(Lw,processRegister x1, processRegister x3, float x2)
-    |"Sw"::x1::x2::x3::tail -> I(Sw,processRegister x1, processRegister x3, float x2)
-    |"Addi"::x1::x2::x3::tail -> I(Addi,processRegister x1, processRegister x2, float x3)
-    |"Andi"::x1::x2::x3::tail -> I(Andi,processRegister x1, processRegister x2, float x3)
+    |"Beq"::x1::x2::x3::tail -> I(Beq,processRegister x1, processRegister x2, int x3)
+    |"Lw"::x1::x2::x3::tail -> I(Lw,processRegister x1, processRegister x3, int x2)
+    |"Sw"::x1::x2::x3::tail -> I(Sw,processRegister x1, processRegister x3, int x2)
+    |"Addi"::x1::x2::x3::tail -> I(Addi,processRegister x1, processRegister x2, int x3)
+    |"Andi"::x1::x2::x3::tail -> I(Andi,processRegister x1, processRegister x2, int x3)
     |"J"::x1::tail -> J(Jump,x1)
     |other -> failwith "invalid instruction"
 
@@ -133,8 +133,18 @@ let registerToBinary (register:Register) =
     |FP -> "11110"
     |RA -> "11111"
 
-let cteToBinary (cte:float) =
-    "0000"
+let cteToBinary cte =
+    let rec cteToBinaryIn i =
+        match i with
+        | 0 | 1 -> string i
+        | _ ->
+            let bit = string (i % 2)
+            (cteToBinaryIn (i / 2)) + bit
+    let rec add0 string =
+        match string with
+        |string when String.length(string)<16 -> "0" + add0 string
+        |_ -> string
+    add0 (cteToBinaryIn cte)
 
 let findLabelPosition (address:string) =
     "0000"
