@@ -26,6 +26,8 @@ type Instruction = |R of Opcode * Register * Register * Register  // opc $r1, $r
                    |I of Opcode * Register * Register * float  // opc $r1, $r2, ct
                    |J of Opcode * string   // opc $label
 
+
+
 let processRegister (register:string) =
     let regUpper = register.ToUpper().TrimEnd(')')
     match regUpper with
@@ -79,6 +81,57 @@ let rec processInstruction str =
     |"Andi"::x1::x2::x3::tail -> I(Andi,processRegister x1, processRegister x2, float x3)
     |"J"::x1::tail -> J(Jump,x1)
     |other -> failwith "invalid instruction"
+
+let opcodeToBinary (opcode:Opcode) =
+    match opcode with
+    |Add -> "000000"
+    |Sub -> "000001"
+    |And -> "000010"
+    |Or -> "000011"
+    |Nor -> "000100"
+    |Xor -> "000101"
+    |Slt -> "000110"
+    |Beq -> "000111"
+    |Lw -> "001000"
+    |Sw -> "010000"
+    |Addi -> "111000"
+    |Andi -> "111010"
+    |Jump -> "100000"
+
+let registerToBinary (register:Register) =
+    match register with
+    |Zero -> "00000"
+    |At -> "00001"
+    |V0 -> "00010"
+    |V1 -> "00011"
+    |A0 -> "00100"
+    |A1 -> "00101"
+    |A2 -> "00110"
+    |A3 -> "00111"
+    |T0 -> "01000"
+    |T1 -> "01001" 
+    |T2 -> "01010"
+    |T3 -> "01011"
+    |T4 -> "01100"
+    |T5 -> "01101"
+    |T6 -> "01110"
+    |T7 -> "01111"
+    |S0 -> "10000"
+    |S1 -> "10001"
+    |S2 -> "10010"
+    |S3 -> "10011"
+    |S4 -> "10100"
+    |S5 -> "10101"
+    |S6 -> "10110"
+    |S7 -> "10111"
+    |T8 -> "11000"
+    |T9 -> "11001"
+    |K0 -> "11010"
+    |K1 -> "11011"
+    |GP -> "11100"
+    |SP -> "11101"
+    |FP -> "11110"
+    |RA -> "11111"
 
 let instructionToType (instructionString:string) =
     let listInst = List.filter (fun x -> x<> "") (Array.toList(instructionString.Split(' ',',','(')))
