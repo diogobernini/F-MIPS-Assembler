@@ -133,6 +133,19 @@ let registerToBinary (register:Register) =
     |FP -> "11110"
     |RA -> "11111"
 
+let cteToBinary (cte:float) =
+    "0000"
+
+let findLabelPosition (address:string) =
+    "0000"
+
+let instructionToBinary (instruction:Instruction) =
+    match instruction with
+    |Instruction.R(opcode,reg1,reg2,reg3) -> opcodeToBinary(opcode) + registerToBinary(reg1) + registerToBinary(reg2) + registerToBinary(reg3) + "00000000000"
+    |Instruction.I(opcode,reg1,reg2,cte) -> opcodeToBinary(opcode) + registerToBinary(reg1) + registerToBinary(reg2) + cteToBinary(cte)
+    |Instruction.J(opcode,address) ->  opcodeToBinary(opcode) + findLabelPosition(address)
+
+
 let instructionToType (instructionString:string) =
     let listInst = List.filter (fun x -> x<> "") (Array.toList(instructionString.Split(' ',',','(')))
     processInstruction listInst
@@ -145,7 +158,7 @@ let readLines (filePath:string) = seq {
 
 let processLines sequence =
     let list = List.ofSeq(sequence)
-    let processedList = list |> List.map (fun x -> instructionToType x)
+    let processedList = list |> List.map (fun x -> instructionToBinary(instructionToType x))
     processedList
 
 [<EntryPoint>]
