@@ -36,7 +36,9 @@ namespace Assembler_UI
                     var file = fileDialog.FileName;
                     char[] charsToTrim = { '.', 'a', 's', 'm' };
                     var fileNoExt = file.TrimEnd(charsToTrim);
-                    var list = global::Program.Assembler.assemble(file, fileNoExt + "compiled.asm");
+                    var list = Program.Assembler.assemble(file, fileNoExt + "compiled.asm");
+                    asmFinal.Text = String.Join("\n", list);
+                    asmOriginal.Text = String.Join("\n", Program.Assembler.readLines(file));
                     TxtFile.Content = file;
                     TxtFile.ToolTip = file;
                     break;

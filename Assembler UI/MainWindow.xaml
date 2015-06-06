@@ -4,21 +4,9 @@
         Title="F# MIPS Assembler" Height="461.755" Width="700.782">
     <Grid>
         <Button Content="Pick an asm file" HorizontalAlignment="Left" VerticalAlignment="Top" Width="150" Click="Button_Click" Margin="544,0,0,0"/>
-        <RichTextBox Name="asmOriginal" HorizontalAlignment="Left" Height="413" Margin="0,19,0,0" VerticalAlignment="Top" Width="350">
-            <FlowDocument>
-                <Paragraph>
-                    <Run Text="ASSEMBLY FILE"/>
-                </Paragraph>
-            </FlowDocument>
-        </RichTextBox>
-        <RichTextBox Name="asmFinal" HorizontalAlignment="Left" Height="413" Margin="350,19,0,0" VerticalAlignment="Top" Width="344">
-            <FlowDocument>
-                <Paragraph>
-                    <Run Text="ASSEMBLED FILE"/>
-                </Paragraph>
-            </FlowDocument>
-        </RichTextBox>
         <Label Name="TxtFile" Content="File Name" HorizontalAlignment="Left" Margin="10,-3,0,0" VerticalAlignment="Top" RenderTransformOrigin="1.152,0.026" Width="529" Height="30"/>
+        <TextBlock Name="asmOriginal" HorizontalAlignment="Left" Margin="10,32,0,0" TextWrapping="Wrap" Text="ASSEMBLY ORIGINAL" VerticalAlignment="Top" Height="390" Width="334"/>
+        <TextBlock Name="asmFinal" HorizontalAlignment="Left" Margin="350,32,0,0" TextWrapping="Wrap" Text="ASSEMBLY FINAL" VerticalAlignment="Top" Height="390" Width="334"/>
 
     </Grid>
 </Window>
