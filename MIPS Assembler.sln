@@ -5,6 +5,11 @@ VisualStudioVersion = 12.0.31101.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "MIPS Assembler", "MIPS Assembler\MIPS Assembler.fsproj", "{80D8450C-B057-47E4-AEAB-7B576EE04FCD}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Assembler UI", "Assembler UI\Assembler UI.csproj", "{603503F3-AE78-4A2C-B890-6BB293E81B6D}"
+	ProjectSection(ProjectDependencies) = postProject
+		{80D8450C-B057-47E4-AEAB-7B576EE04FCD} = {80D8450C-B057-47E4-AEAB-7B576EE04FCD}
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +20,10 @@ Global
 		{80D8450C-B057-47E4-AEAB-7B576EE04FCD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{80D8450C-B057-47E4-AEAB-7B576EE04FCD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{80D8450C-B057-47E4-AEAB-7B576EE04FCD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{603503F3-AE78-4A2C-B890-6BB293E81B6D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{603503F3-AE78-4A2C-B890-6BB293E81B6D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{603503F3-AE78-4A2C-B890-6BB293E81B6D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{603503F3-AE78-4A2C-B890-6BB293E81B6D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
