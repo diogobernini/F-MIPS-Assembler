@@ -1,4 +1,6 @@
-﻿type Opcode = |Add
+﻿module Assembler.MIPS
+
+type Opcode = |Add
               |Sub
               |And
               |Or
@@ -212,3 +214,7 @@ let assemble fileOrigin fileOutput =
     let pl = processLines seqFile
     writeLines pl fileOutput |> ignore//"C:\\Users\\DiogoBernini\\Documents\\Visual Studio 2013\\Projects\\MIPS Assembler\\MIPS Assembler\\compiled.asm" |> ignore
     0 // return an integer exit code
+
+let assembleGetString fileOrigin =
+    let seqFile = readLines fileOrigin
+    processLines seqFile
